@@ -1,17 +1,11 @@
-//
-//  welcomePage.swift
-//  Connext
-//
-//  Created by Scholar on 7/29/25.
-//
-
 import SwiftUI
 
-struct welcomePage: View {
+struct WelcomePage: View {
     var body: some View {
-        //NavigationStack{
+        NavigationStack {
             ZStack {
-                Color("Red").ignoresSafeArea()
+                Color(.beige)
+                    .ignoresSafeArea()
 
                 VStack {
                     HStack {
@@ -19,40 +13,34 @@ struct welcomePage: View {
                             .font(.title)
                             .fontWeight(.bold)
                             .padding()
-                            .padding()
-                        Spacer()
-                        
-                    }//HStack
-                    Spacer()
-                    //insert buttons
-                    NavigationStack {
-                        VStack {
-                            HStack {
-                                NavigationLink(destination: createProject()) {
-                                    Image("createProject")
-                                        .resizable()
-                                        .aspectRatio(contentMode: .fit)
-                                        .padding()
-                                        .frame(maxWidth: .infinity)
-                                }
+    
+                    }
 
-                                NavigationLink(destination: createProject()) {
-                                    Image("joinProject")
-                                        .resizable()
-                                        .aspectRatio(contentMode: .fit)
-                                        .padding()
-                                        .frame(maxWidth: .infinity)
-                                }
-                            }
+                
+                    HStack {
+                        NavigationLink(destination: createProject()) {
+                            Image("createProject")
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                                .padding()
+                                .frame(maxWidth: .infinity)
+                        }
+
+                        NavigationLink(destination: joinProject()) {
+                            Image("joinProject")
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                                .padding()
+                                .frame(maxWidth: .infinity)
                         }
                     }
                 }
+                .navigationBarHidden(true)
             }
-       // }
-        
+        }
     }
 }
 
 #Preview {
-    welcomePage()
+    WelcomePage()
 }
