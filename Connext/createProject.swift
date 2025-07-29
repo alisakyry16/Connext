@@ -7,12 +7,14 @@
 import SwiftUI
 
 struct createProject: View {
-    @State private var name = ""
-    @State private var projectName = ""
-    @State private var topic = "None"
-    @State private var details = ""
-    @State private var location = ""
-    @State private var listing = "Private"
+    @ObservedObject var project: ProjectViewModel
+    @Environment(\.presentationMode) var presentationMode
+//    @State private var name = ""
+//    @State private var projectName = ""
+//    @State private var topic = "None"
+//    @State private var details = ""
+//    @State private var location = ""
+//    @State private var listing = "Private"
 
     let topics = ["None", "Tech", "Art", "Science", "Social"]
     let listings = ["Private", "Public"]
@@ -40,8 +42,8 @@ struct createProject: View {
                     .padding(.top, 20)
 
                 Group {
-                    LabelledTextField(label: "NAME", text: $name)
-                    LabelledTextField(label: "PROJECT NAME", text: $projectName)
+                    LabelledTextField(label: "NAME", text: $project.name)
+                    LabelledTextField(label: "PROJECT NAME", text: $project.projectName)
 
                     Text("TOPIC")
                         .font(.system(size: 14, weight: .bold))
@@ -50,7 +52,7 @@ struct createProject: View {
                     Menu {
                         ForEach(topics, id: \.self) { option in
                             Button(action: {
-                                topic = option
+                                project.topic = option
                             }) {
                                 Text(option)
                                     .foregroundColor(.black)
@@ -58,7 +60,7 @@ struct createProject: View {
                         }
                     } label: {
                         HStack {
-                            Text(topic)
+                            Text(project.topic)
                                 .foregroundColor(.black)
                             Spacer()
                             Image(systemName: "chevron.down")
@@ -72,13 +74,13 @@ struct createProject: View {
                     Text("DETAILS")
                         .font(.system(size: 14, weight: .bold))
 
-                    TextEditor(text: $details)
+                    TextEditor(text: $project.details)
                         .frame(height: 100)
                         .padding()
                         .background(fieldColor)
                         .cornerRadius(20)
 
-                    LabelledTextField(label: "LOCATION", text: $location)
+                    LabelledTextField(label: "LOCATION", text: $project.location)
 
                     Text("LISTING")
                         .font(.system(size: 14, weight: .bold))
@@ -86,7 +88,7 @@ struct createProject: View {
                     Menu {
                         ForEach(listings, id: \.self) { option in
                             Button(action: {
-                                listing = option
+                                project.listing = option
                             }) {
                                 Text(option)
                                     .foregroundColor(.black)
@@ -94,7 +96,7 @@ struct createProject: View {
                         }
                     } label: {
                         HStack {
-                            Text(listing)
+                            Text(project.listing)
                                 .foregroundColor(.black)
                             Spacer()
                             Image(systemName: "chevron.down")
@@ -106,15 +108,13 @@ struct createProject: View {
                     }
                 }
                 Spacer()
-                NavigationLink(destination: ContentView()) {
-                    Text("Done")
-                        .fontWeight(.bold)
-                        .foregroundColor(.black)
-                        .frame(maxWidth: .infinity)
-                        .padding()
-                        .background(doneColor)
-                        .cornerRadius(30)
+                Button("Done") {
+                  presentationMode.wrappedValue.dismiss()
                 }
+                .frame(maxWidth: .infinity)
+                .padding()
+                .background(doneColor)
+                .cornerRadius(30)
             }
             .padding()
         }
@@ -140,7 +140,7 @@ struct createProject: View {
     }
 }
 #Preview {
-  createProject()
+    createProject(project: ProjectViewModel())
 }
 
 
