@@ -30,10 +30,12 @@ var body: some View {
    }
 }
 struct ContentView: View {
+    @StateObject var project = ProjectViewModel()
+    //@ObservedObject var projectTwo: ProjectViewModel
+    @Environment(\.presentationMode) var presentationMode
     @State private var task1 = ""
     @State private var task2 = ""
     @State private var task3 = ""
-    @State private var projectName = ""
     
     var body: some View {
         NavigationStack {
@@ -42,11 +44,11 @@ struct ContentView: View {
                     .ignoresSafeArea()
                 VStack {
                     HStack {
-                        Text("Project Name")
+                        Text(project.projectName)
                             .font(.largeTitle)
                             .fontWeight(.bold)
                         Spacer()
-                        NavigationLink(destination: createProject()){
+                        NavigationLink(destination: createProject(project: project)){
                             Text("+")
                             .font(.largeTitle)
                             .foregroundColor(.lightBlue)

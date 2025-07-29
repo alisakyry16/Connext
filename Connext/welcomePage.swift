@@ -28,7 +28,7 @@ struct welcomePage: View {
                     NavigationStack {
                         VStack {
                             HStack {
-                                NavigationLink(destination: createProject()) {
+                                NavigationLink(destination: createProject(project: ProjectViewModel())) {
                                     Image("createProject")
                                         .resizable()
                                         .aspectRatio(contentMode: .fit)
@@ -36,7 +36,7 @@ struct welcomePage: View {
                                         .frame(maxWidth: .infinity)
                                 }
 
-                                NavigationLink(destination: createProject()) {
+                                NavigationLink(destination: createProject(project: ProjectViewModel())) {
                                     Image("joinProject")
                                         .resizable()
                                         .aspectRatio(contentMode: .fit)
