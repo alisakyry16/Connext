@@ -6,7 +6,29 @@
 //
 
 import SwiftUI
+struct ProgressRing: View {
+    var progress: CGFloat  // between 0.0 and 1.0
+    var lineWidth: CGFloat = 45
+    var size: CGFloat = 200
 
+var body: some View {
+    ZStack {
+        Circle()
+            .stroke(Color.lightBlue.opacity(0.3), lineWidth: lineWidth)
+
+        Circle()
+            .trim(from: 0.0, to: progress)
+            .stroke(Color.darkBlue, style: StrokeStyle(lineWidth: lineWidth, lineCap: .round))
+            .rotationEffect(.degrees(-90))
+
+        Text("\(Int(progress * 100))%")
+            .font(.title)
+            .fontWeight(.bold)
+            .foregroundColor(.black)
+       }
+       .frame(width: size, height: size)
+   }
+}
 struct ContentView: View {
     @State private var task1 = ""
     @State private var task2 = ""
@@ -24,12 +46,12 @@ struct ContentView: View {
                             .font(.largeTitle)
                             .fontWeight(.bold)
                         Spacer()
-                        Button("+") {
-                            /*@START_MENU_TOKEN@*//*@PLACEHOLDER=Action@*/ /*@END_MENU_TOKEN@*/
+                        NavigationLink(destination: createProject()){
+                            Text("+")
+                            .font(.largeTitle)
+                            .foregroundColor(.lightBlue)
+                            .fontWeight(.semibold)
                         }
-                        .font(.largeTitle)
-                        .foregroundColor(.lightBlue)
-                        .fontWeight(.semibold)
                     }
                     HStack {
                         Button("Edit Details") {
@@ -75,32 +97,11 @@ struct ContentView: View {
                         .padding(3.0)
                 }
                 .padding()
+                
             }
+            .navigationBarBackButtonHidden(true)
+            
         }
-    }
-}
-
-struct ProgressRing: View {
-    var progress: CGFloat  // between 0.0 and 1.0
-    var lineWidth: CGFloat = 45
-    var size: CGFloat = 200
-
-    var body: some View {
-        ZStack {
-            Circle()
-                .stroke(Color.lightBlue.opacity(0.3), lineWidth: lineWidth)
-
-            Circle()
-                .trim(from: 0.0, to: progress)
-                .stroke(Color.darkBlue, style: StrokeStyle(lineWidth: lineWidth, lineCap: .round))
-                .rotationEffect(.degrees(-90))
-
-            Text("\(Int(progress * 100))%")
-                .font(.title)
-                .fontWeight(.bold)
-                .foregroundColor(.black)
-        }
-        .frame(width: size, height: size)
     }
 }
 
