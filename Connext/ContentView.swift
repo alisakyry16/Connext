@@ -29,18 +29,19 @@ struct ContentView: View {
                         }
                         .font(.largeTitle)
                         .foregroundColor(.lightBlue)
+                        .fontWeight(.semibold)
                     }
                     HStack {
-                        Text("Edit Details")
-                            .font(.headline)
-                            .fontWeight(.semibold)
+                        Button("Edit Details") {
+                            /*@START_MENU_TOKEN@*//*@PLACEHOLDER=Action@*/ /*@END_MENU_TOKEN@*/
+                        }
+                        .font(.headline)
+                        .fontWeight(.semibold)
+                        .foregroundColor(.lightBlue)
                         Spacer()
-                        Text("Create Project")
-                            .font(.headline)
-                            .fontWeight(.semibold)
                     }
                     Spacer()
-                    ProgressRing(progress: 0.6)
+                    ProgressRing(progress: 0.1)
                     Spacer()
                     HStack {
                         Text("Next Steps")
