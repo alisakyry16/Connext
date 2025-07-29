@@ -8,6 +8,11 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State private var task1 = ""
+    @State private var task2 = ""
+    @State private var task3 = ""
+    @State private var projectName = ""
+    
     var body: some View {
         NavigationStack {
             ZStack {
@@ -43,7 +48,7 @@ struct ContentView: View {
                             .fontWeight(.bold)
                         Spacer()
                     }
-                    Text("Task 1")
+                    Text(task1)
                         .font(.title2)
                         .fontWeight(.medium)
                         .foregroundColor(.white)
@@ -51,7 +56,7 @@ struct ContentView: View {
                         .background(Rectangle().foregroundColor(.darkBlue))
                         .cornerRadius(20)
                         .padding(3.0)
-                    Text("Task 2")
+                    Text(task2)
                         .font(.title2)
                         .fontWeight(.medium)
                         .foregroundColor(.white)
@@ -59,7 +64,7 @@ struct ContentView: View {
                         .background(Rectangle().foregroundColor(.darkBlue))
                         .cornerRadius(20)
                         .padding(3.0)
-                    Text("Task 3")
+                    Text(task3)
                         .font(.title2)
                         .fontWeight(.medium)
                         .foregroundColor(.white)
@@ -76,21 +81,22 @@ struct ContentView: View {
 
 struct ProgressRing: View {
     var progress: CGFloat  // between 0.0 and 1.0
-    var lineWidth: CGFloat = 20
+    var lineWidth: CGFloat = 45
     var size: CGFloat = 200
 
     var body: some View {
         ZStack {
             Circle()
-                .stroke(Color.gray.opacity(0.3), lineWidth: lineWidth)
+                .stroke(Color.lightBlue.opacity(0.3), lineWidth: lineWidth)
 
             Circle()
                 .trim(from: 0.0, to: progress)
-                .stroke(Color.blue, style: StrokeStyle(lineWidth: lineWidth, lineCap: .round))
+                .stroke(Color.darkBlue, style: StrokeStyle(lineWidth: lineWidth, lineCap: .round))
                 .rotationEffect(.degrees(-90))
 
             Text("\(Int(progress * 100))%")
-                .font(.caption2)
+                .font(.title)
+                .fontWeight(.bold)
                 .foregroundColor(.black)
         }
         .frame(width: size, height: size)
