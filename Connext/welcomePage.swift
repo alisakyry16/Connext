@@ -9,7 +9,47 @@ import SwiftUI
 
 struct welcomePage: View {
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        //NavigationStack{
+            ZStack {
+                Color("Red").ignoresSafeArea()
+
+                VStack {
+                    HStack {
+                        Text("Welcome to Connext!")
+                            .font(.title)
+                            .fontWeight(.bold)
+                            .padding()
+                            .padding()
+                        Spacer()
+                        
+                    }//HStack
+                    Spacer()
+                    //insert buttons
+                    NavigationStack {
+                        VStack {
+                            HStack {
+                                NavigationLink(destination: createProject()) {
+                                    Image("createProject")
+                                        .resizable()
+                                        .aspectRatio(contentMode: .fit)
+                                        .padding()
+                                        .frame(maxWidth: .infinity)
+                                }
+
+                                NavigationLink(destination: createProject()) {
+                                    Image("joinProject")
+                                        .resizable()
+                                        .aspectRatio(contentMode: .fit)
+                                        .padding()
+                                        .frame(maxWidth: .infinity)
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+       // }
+        
     }
 }
 
