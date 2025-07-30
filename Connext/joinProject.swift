@@ -42,7 +42,7 @@ struct joinProject: View {
                 .padding(.top, 0.0)
 
             VStack {
-                NavigationLink(destination: ContentView()) {
+                NavigationLink(destination: ContentView(project: ProjectViewModel())) {
                     Image("houseIcon")
                         .resizable()
                         .ignoresSafeArea()

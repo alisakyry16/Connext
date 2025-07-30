@@ -4,9 +4,7 @@
 //
 //  Created by Scholar on 7/29/25.
 //
-
 import SwiftUI
-
 struct ProgressRing: View {
   var progress: CGFloat // between 0.0 and 1.0
   var lineWidth: CGFloat = 45
@@ -27,9 +25,9 @@ var body: some View {
     .frame(width: size, height: size)
   }
 }
-
 struct ContentView: View {
   @State private var projects: [ProjectViewModel] = []
+  @ObservedObject var project: ProjectViewModel
   @State private var selectedIndex: Int? = nil
   @Environment(\.presentationMode) var presentationMode
   @State private var task1 = ""
@@ -79,11 +77,40 @@ struct ContentView: View {
                 .padding(3.0)
             }
           } else {
-            Spacer()
-            Text("Create a new project to begin")
-              .font(.title3)
-              .foregroundColor(.gray)
-            Spacer()
+              HStack {
+                Text("Untitled")
+                  .font(.largeTitle)
+                  .fontWeight(.bold)
+                Spacer()
+              }
+              HStack {
+                Button("Edit Details") {
+                  
+                }
+                .font(.headline)
+                .fontWeight(.semibold)
+                .foregroundColor(.lightBlue)
+                Spacer()
+              }
+              Spacer()
+              ProgressRing(progress: 0.1)
+              Spacer()
+              HStack {
+                Text("Next Steps")
+                  .font(.title)
+                  .fontWeight(.bold)
+                Spacer()
+              }
+              ForEach([task1, task2, task3], id: \.self) { task in
+                  Text(task)
+                      .font(.title2)
+                      .fontWeight(.medium)
+                      .foregroundColor(.white)
+                      .frame(width: 350, height: 50)
+                      .background(Rectangle().foregroundColor(.darkBlue))
+                      .cornerRadius(20)
+                      .padding(3.0)
+              }
           }
         }
         .padding()
@@ -153,6 +180,5 @@ struct ContentView: View {
   }
 }
 #Preview {
-  ContentView()
+    ContentView(project: ProjectViewModel())
 }
-
