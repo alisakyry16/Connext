@@ -6,14 +6,29 @@
 //
 import Foundation
 class ProjectViewModel: ObservableObject {
-    @Published var name = ""
-    @Published var projectName = ""
-    @Published var topic = ""
-    @Published var details = ""
-    @Published var location = ""
-    @Published var listing = ""
-    var isComplete: Bool {
-        !name.isEmpty && !projectName.isEmpty
+    @Published var name: String
+    @Published var projectName: String
+    @Published var topic: String
+    @Published var details: String
+    @Published var location: String
+    @Published var listing: String
+    init(name: String = "",
+         projectName: String = "",
+         topic: String = "",
+         details: String = "",
+         location: String = "",
+         listing: String = "") {
+        self.name = name
+        self.projectName = projectName
+        self.topic = topic
+        self.details = details
+        self.location = location
+        self.listing = listing
     }
 }
+
+
+
+
+
 

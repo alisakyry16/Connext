@@ -109,12 +109,14 @@ struct createProject: View {
                 }
                 Spacer()
                 Button("Done") {
-                  presentationMode.wrappedValue.dismiss()
+                    presentationMode.wrappedValue.dismiss()
                 }
                 .frame(maxWidth: .infinity)
                 .padding()
                 .background(doneColor)
                 .cornerRadius(30)
+                .foregroundColor(.black)
+                .fontWeight(.semibold)
             }
             .padding()
         }
