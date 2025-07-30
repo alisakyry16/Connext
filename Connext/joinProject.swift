@@ -35,22 +35,9 @@ struct joinProject: View {
                 
                 Spacer()
             } // VStack closing
-            
-            Image("toolbar")
-                .resizable()
-                .ignoresSafeArea()
-                .padding(.top, 0.0)
-
-            VStack {
-                NavigationLink(destination: ContentView(project: ProjectViewModel())) {
-                    Image("houseIcon")
-                        .resizable()
-                        .ignoresSafeArea()
-                        .frame(width: 50, height: 38)
-                        .padding(.top, 730.0)
-                }
-            }
+        
         } // ZStack closing
+        customToolbar()
     } // body closing
 } // struct closing
 
