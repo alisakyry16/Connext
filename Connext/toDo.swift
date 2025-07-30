@@ -41,25 +41,47 @@ struct toDo: View {
                 
                 List {
                     ForEach(toDos) { toDoItem in
-                        if toDoItem.isImportant {
-                            Text("‼️ " + toDoItem.title)
-                        } else {
+                        HStack {
+                            Button {
+                                toggleDone(toDoItem)
+                            } label: {
+                                Image(systemName: toDoItem.isDone ? "checkmark.square.fill" : "square")
+                                    .foregroundColor(toDoItem.isDone ? .gray : .blue)
+                            }
+                            .buttonStyle(BorderlessButtonStyle()) // Important inside List
+                            
                             Text(toDoItem.title)
+                                .foregroundColor(toDoItem.isDone ? .gray : .primary)
+                                .strikethrough(toDoItem.isDone)
+                            
+                            if toDoItem.isImportant {
+                                Spacer()
+                                Image(systemName: "exclamationmark.circle.fill")
+                                    .foregroundColor(.red)
+                            }
                         }
                     }
                     .onDelete(perform: deleteToDo)
                 }
                 .listStyle(.plain)
-                .background(Color.clear)
+                .background(Color.beige)
             }
             
             if showNewTask {
-                NewToDoView(showNewTask: $showNewTask, toDoItem: ToDoItem(title: "", isImportant: false))
+           
+                    NewToDoView(showNewTask: $showNewTask, toDoItem: ToDoItem(title: "", isImportant: false))
+                
             }
+                
         }
     }
     
-    // ✅ Moved OUTSIDE body
+    func toggleDone(_ toDoItem: ToDoItem) {
+        // Toggle isDone on the model
+        toDoItem.isDone.toggle()
+        try? modelContext.save()
+    }
+    
     func deleteToDo(at offsets: IndexSet) {
         for offset in offsets {
             let toDoItem = toDos[offset]
