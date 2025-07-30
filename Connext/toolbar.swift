@@ -21,7 +21,7 @@ struct customToolbar: View {
                         .offset(y: 14)
                 }
                 Spacer()
-                NavigationLink(destination: ContentView()) {
+                NavigationLink(destination: ContentView(project: ProjectViewModel())) {
               
                     Image("houseIcon")
                         .resizable()
