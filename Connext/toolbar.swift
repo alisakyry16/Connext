@@ -14,7 +14,7 @@ struct customToolbar: View {
         VStack(spacing: 0) {
             HStack {
                 Spacer()
-                NavigationLink(destination: toDo()){
+                NavigationLink(destination: toDo(projectID: UUID())){
                     Image("checkboxIcon")
                         .resizable()
                         .frame(width: 50, height: 50)
