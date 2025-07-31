@@ -12,6 +12,7 @@ class ProjectViewModel: ObservableObject {
     @Published var details: String
     @Published var location: String
     @Published var listing: String
+    
     init(name: String = "",
          projectName: String = "",
          topic: String = "",

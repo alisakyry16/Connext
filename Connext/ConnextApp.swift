@@ -11,7 +11,8 @@ import SwiftUI
 struct ConnextApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView(project: ProjectViewModel())
+            ContentView()
+                .modelContainer(for: ToDoItem.self)
         }
     }
 }

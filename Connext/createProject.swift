@@ -2,6 +2,7 @@ import SwiftUI
 struct createProject: View {
   @ObservedObject var project: ProjectViewModel
   @Environment(\.presentationMode) var presentationMode
+    @Environment(\.dismiss) var dismiss
   private let topics = ["None", "Tech", "Art", "Science", "Social"]
   private let listings = ["Private", "Public"]
   private var backgroundColor: Color { Color(red: 248/255, green: 245/255, blue: 242/255) }
@@ -53,7 +54,7 @@ struct createProject: View {
         Spacer()
         Button("Done") {
           // dismiss back to the welcomePage that launched this view
-          presentationMode.wrappedValue.dismiss()
+          dismiss()
         }
         .frame(maxWidth: .infinity)
         .padding()
