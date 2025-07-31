@@ -4,7 +4,9 @@
 //
 //  Created by Scholar on 7/29/25.
 //
+
 import SwiftUI
+import SwiftData
 struct ProgressRing: View {
   var progress: CGFloat // between 0.0 and 1.0
   var lineWidth: CGFloat = 45
@@ -25,9 +27,12 @@ var body: some View {
     .frame(width: size, height: size)
   }
 }
+
+
+
 struct ContentView: View {
+  @Query var toDos: [ToDoItem]
   @State private var projects: [ProjectViewModel] = []
-  @ObservedObject var project: ProjectViewModel
   @State private var selectedIndex: Int? = nil
   @Environment(\.presentationMode) var presentationMode
   @State private var task1 = ""
@@ -35,13 +40,17 @@ struct ContentView: View {
   @State private var task3 = ""
   @State private var projectToEdit: ProjectViewModel? = nil
   @State private var navigateBack = false
+  var progress: CGFloat {
+    guard !toDos.isEmpty else { return 0 }
+    let completed = toDos.filter { $0.isDone }.count
+    return CGFloat(completed) / CGFloat(toDos.count)
+  }
   var body: some View {
     NavigationStack {
       ZStack {
         Color(.beige).ignoresSafeArea()
         VStack {
           if let selected = selectedIndex {
-            // Project name header
             HStack {
               Text(projects[selected].projectName.isEmpty ? "Untitled" : projects[selected].projectName)
                 .font(.largeTitle)
@@ -58,7 +67,7 @@ struct ContentView: View {
               Spacer()
             }
             Spacer()
-            ProgressRing(progress: 0.1)
+            ProgressRing(progress: progress)
             Spacer()
             HStack {
               Text("Next Steps")
@@ -66,8 +75,9 @@ struct ContentView: View {
                 .fontWeight(.bold)
               Spacer()
             }
-            ForEach([task1, task2, task3], id: \.self) { task in
-              Text(task)
+            let nextSteps = toDos.filter { !$0.isDone }.suffix(3).reversed()
+            ForEach(nextSteps, id: \.self) { task in
+              Text(task.title)
                 .font(.title2)
                 .fontWeight(.medium)
                 .foregroundColor(.white)
@@ -77,40 +87,11 @@ struct ContentView: View {
                 .padding(3.0)
             }
           } else {
-              HStack {
-                Text("Untitled")
-                  .font(.largeTitle)
-                  .fontWeight(.bold)
-                Spacer()
-              }
-              HStack {
-                Button("Edit Details") {
-                  
-                }
-                .font(.headline)
-                .fontWeight(.semibold)
-                .foregroundColor(.lightBlue)
-                Spacer()
-              }
-              Spacer()
-              ProgressRing(progress: 0.1)
-              Spacer()
-              HStack {
-                Text("Next Steps")
-                  .font(.title)
-                  .fontWeight(.bold)
-                Spacer()
-              }
-              ForEach([task1, task2, task3], id: \.self) { task in
-                  Text(task)
-                      .font(.title2)
-                      .fontWeight(.medium)
-                      .foregroundColor(.white)
-                      .frame(width: 350, height: 50)
-                      .background(Rectangle().foregroundColor(.darkBlue))
-                      .cornerRadius(20)
-                      .padding(3.0)
-              }
+            Spacer()
+            Text("Create a new project to begin")
+              .font(.title3)
+              .foregroundColor(.gray)
+            Spacer()
           }
         }
         .padding()
@@ -118,8 +99,15 @@ struct ContentView: View {
           get: { projectToEdit != nil },
           set: {
             if !$0 {
-              if let project = projectToEdit, let index = projects.firstIndex(where: { $0 === project }) {
-                selectedIndex = index
+              if let project = projectToEdit {
+                if let index = projects.firstIndex(where: { $0 === project }) {
+                  selectedIndex = index
+                } else {
+                  projects.append(project)
+                  DispatchQueue.main.async {
+                    selectedIndex = projects.count - 1
+                  }
+                }
               }
               projectToEdit = nil
             }
@@ -143,6 +131,9 @@ struct ContentView: View {
               Button {
                 let newProject = ProjectViewModel()
                 projects.append(newProject)
+//                DispatchQueue.main.async {
+//                  selectedIndex = projects.count - 1
+//                }
                 projectToEdit = newProject
               } label: {
                 Label("Create New Project", systemImage: "plus")
@@ -168,6 +159,9 @@ struct ContentView: View {
           Button(action: {
             let newProject = ProjectViewModel()
             projects.append(newProject)
+            DispatchQueue.main.async {
+              selectedIndex = projects.count - 1
+            }
             projectToEdit = newProject
           }) {
             Image(systemName: "plus")
@@ -176,10 +170,10 @@ struct ContentView: View {
         }
       }
       .navigationBarBackButtonHidden(true)
-        customToolbar()
     }
   }
 }
 #Preview {
-    ContentView(project: ProjectViewModel())
+  ContentView()
+    .modelContainer(for: ToDoItem.self, inMemory: true)
 }
