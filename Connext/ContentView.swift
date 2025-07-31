@@ -7,6 +7,7 @@
 
 import SwiftUI
 import SwiftData
+
 struct ProgressRing: View {
   var progress: CGFloat // between 0.0 and 1.0
   var lineWidth: CGFloat = 45
@@ -87,11 +88,21 @@ struct ContentView: View {
                 .padding(3.0)
             }
           } else {
-            Spacer()
-            Text("Create a new project to begin")
-              .font(.title3)
-              .foregroundColor(.gray)
-            Spacer()
+              HStack {
+                Text("No Project Selected")
+                  .font(.largeTitle)
+                  .fontWeight(.bold)
+                Spacer()
+              }
+              Spacer()
+              ProgressRing(progress: progress)
+              Spacer()
+              HStack {
+                Text("Next Steps")
+                  .font(.title)
+                  .fontWeight(.bold)
+                Spacer()
+              }
           }
         }
         .padding()
@@ -170,6 +181,7 @@ struct ContentView: View {
         }
       }
       .navigationBarBackButtonHidden(true)
+        customToolbar()
     }
   }
 }

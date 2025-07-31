@@ -74,6 +74,7 @@ struct toDo: View {
             }
                 
         }
+        customToolbar()
     }
     
     func toggleDone(_ toDoItem: ToDoItem) {
