@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+
 struct LoginView: View {
     @Binding var isLoggedIn: Bool
     @State private var isSignUp = false
@@ -57,7 +58,7 @@ struct LoginView: View {
             }
             .frame(maxWidth: .infinity)
             .padding()
-            .background(isSignUp ? Color.green : Color.blue)
+            .background(isSignUp ? Color.darkBlue : Color.darkBlue)
             .foregroundColor(.white)
             .cornerRadius(12)
             Button(isSignUp ? "Already have an account? Log In" : "Don't have an account? Sign Up") {
