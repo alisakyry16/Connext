@@ -9,10 +9,14 @@ import SwiftUI
 
 @main
 struct ConnextApp: App {
+    @State private var isLoggedIn = false
     var body: some Scene {
         WindowGroup {
-            ContentView()
-                .modelContainer(for: ToDoItem.self)
+            if isLoggedIn {
+                ContentView() // your current main screen
+            } else {
+                LoginView(isLoggedIn: $isLoggedIn)
+            }
         }
     }
 }
