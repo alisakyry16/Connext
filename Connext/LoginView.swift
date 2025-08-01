@@ -58,7 +58,7 @@ struct LoginView: View {
             }
             .frame(maxWidth: .infinity)
             .padding()
-            .background(isSignUp ? Color.darkBlue : Color.darkBlue)
+            .background(isSignUp ? Color.green : Color.blue)
             .foregroundColor(.white)
             .cornerRadius(12)
             Button(isSignUp ? "Already have an account? Log In" : "Don't have an account? Sign Up") {

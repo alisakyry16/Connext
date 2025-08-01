@@ -78,7 +78,7 @@ struct ProjectCard: View {
 
 struct joinProject: View {
     var projects: [ProjectCardData] = [
-        ProjectCardData(name: "Team Alpha", projectName: "AI Assistant", description: "Using machine learning to build a virtual assistant that adapts to user behavior.", location: "Seattle"),
+        ProjectCardData(name: "Michelle", projectName: "Connext", description: "Our App", location: "Seattle"),
         ProjectCardData(name: "Team Beta", projectName: "Eco App", description: "Track your carbon footprint and earn rewards by reducing waste.", location: "New York"),
         ProjectCardData(name: "Team Gamma", projectName: "Art Exchange", description: "A community for young artists to share and sell digital artwork.", location: "San Francisco")
     ]
